@@ -16,6 +16,7 @@ class DataStorageStacked implements iDataStorage {
         }
 
 	$backingStorageClass="DataStorage\\".$config["BACKINGSTORAGE"];
+	if (!class_exists($backingStorageClass)) die("BackingClass $backingStorageClass load failed");
 	$this->backingStorage=new $backingStorageClass($configFile);
 	$this->config=$config;
     }
@@ -42,8 +43,9 @@ class DataStorageStacked implements iDataStorage {
 
     private function getPipelineClass($dataProcessorId) {
 	$DPClass="DataStorage\\".trim($dataProcessorId);
+	if (!class_exists($DPClass)) die("Pipeline $dataProcessorId load failed");
 	$DP=new $DPClass;
-	 return $DP;
+	return $DP;
     }
     private function EncodePipeline($data) {
 	foreach(explode(",",$this->config["PIPELINE"]) as $dataProcessorId) {

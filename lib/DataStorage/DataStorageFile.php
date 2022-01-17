@@ -10,9 +10,10 @@ class DataStorageFile implements iDataStorage {
 	$required=array("DATADIR","CHUNK");
 	foreach ($required as $testField) {
 	    if (!isset($config[$testField])) die("No $testField variable set");
+	    $this->config[$testField]=$config[$testField];
 	}
 
-	$this->config=$config;
+//	$this->config=$config;
     }
     
     private function genFilename($key) {
